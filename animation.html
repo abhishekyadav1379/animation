@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Animation</title>
 </head>
 <body>
 
@@ -16,6 +16,11 @@
         c.width = window.innerWidth;
         c.height = window.innerHeight;
 
+        window.addEventListener('resize', function() {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight
+        }, false);
+        
         function draw() {
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, c.width, c.height);
