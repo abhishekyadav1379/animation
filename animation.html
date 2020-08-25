@@ -6,6 +6,30 @@
     <title>Document</title>
 </head>
 <body>
+
+    <canvas  id="s1"></canvas>
+    <script>
+
+        var t = 0;
+        var c = document.getElementById('s1');
+        var ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+
+        function draw() {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, c.width, c.height);
+            //ctx.fill();
+            var i, r;
+
+        }
+
+        function start() {
+            window.requestAnimationFrame(start);
+            draw();
+        }
+        start();
+    </script>
     
 </body>
 </html>
