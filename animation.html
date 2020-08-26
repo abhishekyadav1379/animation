@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Animation</title>
 </head>
-<body style="margin: 0;">
-    
+<body id="body">
     
     <canvas id="s1">
         <img id="aeroplane" width="50" height="50" src="./Images/aero.png" alt="aeroplane">
         <img id="background" width="50" height="50" src="./Images/C11AY.png" alt="main background">
     </canvas>
+
     <script>
         
+        var body = document.getElementById("body");
+        body.style.margin= "0";
+
         var aeroplane = document.getElementById("aeroplane");
         var background = document.getElementById("background");
         var canvas = document.getElementById("s1");     
@@ -28,7 +31,7 @@
 
         // Global varibles
         var x=1, y=1,xb=0, rn, yp=10, Bool=false;
-        rn = Math.floor(Math.random() * 120) + 80;
+        rn = Math.floor(Math.random() * 120) + canvas.width;
 
         // main function
         function draw() {
@@ -37,7 +40,7 @@
           ctx.drawImage(background, xb ,0, canvas.width, canvas.height);
           xb -= 2;
           ctx.drawImage(background, xb+canvas.width ,0, canvas.width, canvas.height);
-          if( xb < (-1200) ){
+          if( xb < (-1*canvas.width) ){
               xb = 0;
           }
 
@@ -68,14 +71,15 @@
             {
                 x = rn*Math.log(y);
             } 
-            if(y>700)
+            if(y>canvas.height)
             {
                 x = 1;
                 y = 1;
                 rn = Math.floor(Math.random() * 120) + 80;
             }
             ctx.beginPath(); 
-            ctx.arc(x +130, y+115+yp, 10, 0, eA);   
+            ctx.fillStyle = 'black';
+            ctx.arc( x+130, y+115+yp, 10, 0, eA );   
             ctx.fill(); 
             y += 5; 
         };
