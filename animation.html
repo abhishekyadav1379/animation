@@ -2,39 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animation</title>
 </head>
-<body>
-
-    <canvas  id="s1"></canvas>
+<body style="margin: 0;">
+    
+    
+    <canvas id="s1">
+        <img id="aeroplane" width="50" height="50" src="./Images/aero.png" alt="aeroplane">
+        <img id="background" width="50" height="50" src="./Images/C11AY.png" alt="main background">
+    </canvas>
     <script>
-
-        var t = 0;
-        var c = document.getElementById('s1');
-        var ctx = c.getContext('2d');
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-
-        window.addEventListener('resize', function() {
-            c.width = window.innerWidth;
-            c.height = window.innerHeight
-        }, false);
         
+        var aeroplane = document.getElementById("aeroplane");
+        var background = document.getElementById("background");
+        var canvas = document.getElementById("s1");     
+        var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        //  When click in resize the window window.
+        window.addEventListener('resize', function() {    
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }, false);
+
+        // Global varibles
+        var x=1, y=1,xb=0, rn, yp=10, Bool=false;
+        rn = Math.floor(Math.random() * 120) + 80;
+
+        // main function
         function draw() {
-            ctx.fillStyle = 'black';
-            ctx.fillRect(0, 0, c.width, c.height);
-            //ctx.fill();
-            var i, r;
 
-        }
+          // background  
+          ctx.drawImage(background, xb ,0, canvas.width, canvas.height);
+          xb -= 2;
+          ctx.drawImage(background, xb+canvas.width ,0, canvas.width, canvas.height);
+          if( xb < (-1200) ){
+              xb = 0;
+          }
 
+          // aeroplane
+          if( yp>9 && Bool == false )
+          {
+              yp += 0.4;
+              if( yp>=55 )
+              {
+                  Bool = true;
+              }
+          }
+          if(Bool == true)
+          {
+              yp -= 0.4;
+              if( yp<9 )
+              {
+                  Bool = false;
+                  yp = 10;
+              }
+          }
+          ctx.drawImage(aeroplane, 10, yp, 200,200);
+
+          // Bomb
+            var eA;
+            eA = Math.PI * 2;
+            if(y<canvas.height)
+            {
+                x = rn*Math.log(y);
+            } 
+            if(y>700)
+            {
+                x = 1;
+                y = 1;
+                rn = Math.floor(Math.random() * 120) + 80;
+            }
+            ctx.beginPath(); 
+            ctx.arc(x +130, y+115+yp, 10, 0, eA);   
+            ctx.fill(); 
+            y += 5; 
+        };
+
+        // infinty loop
         function start() {
-            window.requestAnimationFrame(start);
-            draw();
+          window.requestAnimationFrame(start);  
+          draw();                              
         }
+
         start();
     </script>
-    
 </body>
 </html>
